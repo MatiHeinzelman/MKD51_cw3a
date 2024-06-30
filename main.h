@@ -6,4 +6,4 @@
 #include <string.h>
 
 void WAIT_10US( unsigned int myint );
-void CHKSPEED(  );
+ 

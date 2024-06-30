@@ -63,9 +63,23 @@ ret       ; return with param
  
 PUBLIC  _SL33P
 _SL33P:
-	MOV R5,#200
+	 mov DPTR,#PTIO  ; show B on LED
+	 movx A,@DPTR	;
+	 ;CPL A;
+	 ANL A,#0x0f
+	 ;RL A
+	 ;XRL A,#0xF0
+	 
+
+	  	
+
+	MOV R4,A
+	myloopr4:
+	MOV R5,#50
+	
 	myloopa:
-	MOV A,#200
+	MOV A,#50
+	
 	myloop:
 		DEC A
 		JNZ myloop
@@ -73,29 +87,13 @@ _SL33P:
 		DEC R5
 		CJNE R5, #0 , myloopa  ; COMPARE destination, source and jump if not equal
 
+		DEC R4
+		CJNE R4, #0 , myloopr4 
 
 RET
 
 
-
-
-
-
-
-
-
-
-
-PUBLIC  _checkSpeed
-_checkSpeed:
-
-ret
-
-
-
-
-
-
+ 
 
 	
 END 

@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 16:24:09 PAGE     1
+A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 17:18:33 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -61,11 +61,11 @@ LOC  OBJ            LINE     SOURCE
                       52     
 001B FF               53     mov r7,A  ; mov A to param
                       54     
-001C 8001             55     JMP _SL33P
+                      55     ;JMP _SL33P
                       56     
-001E 22               57     ret       ; return with param
+001C 22               57     ret       ; return with param
                       58     
-A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 16:24:09 PAGE     2
+A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 17:18:33 PAGE     2
 
                       59     ; 3. Read the conversion result
                       60      ;   MOVX A, @DPTR       ; Read the result from ADC register
@@ -73,46 +73,44 @@ LOC  OBJ            LINE     SOURCE
                       62      
                       63      
                       64     PUBLIC  _SL33P
-001F                  65     _SL33P:
-001F 7DC8             66             MOV R5,#200
-0021                  67             myloopa:
-0021 74C8             68             MOV A,#200
-0023                  69             myloop:
-0023 14               70                     DEC A
-0024 70FD             71                     JNZ myloop
-                      72                     
-0026 1D               73                     DEC R5
-0027 BD00F7           74                     CJNE R5, #0 , myloopa  ; COMPARE destination, source and jump if not equal
+001D                  65     _SL33P:
+001D 908008           66              mov DPTR,#PTIO  ; show B on LED
+0020 E0               67              movx A,@DPTR   ;
+                      68              ;CPL A;
+0021 540F             69              ANL A,#0x0f
+                      70              ;RL A
+                      71              ;XRL A,#0xF0
+                      72              
+                      73     
+                      74                     
                       75     
-                      76     
-002A 22               77     RET
-                      78     
-                      79     
-                      80     
-                      81     
-                      82     
-                      83     
-                      84     
-                      85     
-                      86     
-                      87     
-                      88     
-                      89     PUBLIC  _checkSpeed
-002B                  90     _checkSpeed:
-                      91     
-002B 22               92     ret
-                      93     
+0023 FC               76             MOV R4,A
+0024                  77             myloopr4:
+0024 7D32             78             MOV R5,#50
+                      79             
+0026                  80             myloopa:
+0026 7432             81             MOV A,#50
+                      82             
+0028                  83             myloop:
+0028 14               84                     DEC A
+0029 70FD             85                     JNZ myloop
+                      86                     
+002B 1D               87                     DEC R5
+002C BD00F7           88                     CJNE R5, #0 , myloopa  ; COMPARE destination, source and jump if not equal
+                      89     
+002F 1C               90                     DEC R4
+0030 BC00F1           91                     CJNE R4, #0 , myloopr4 
+                      92     
+0033 22               93     RET
                       94     
                       95     
-                      96     
+                      96      
                       97     
-                      98     
-                      99     
-                     100             
-                     101     END 
+                      98             
+                      99     END 
                              
                               
-A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 16:24:09 PAGE     3
+A51 MACRO ASSEMBLER  ASSEMBLY                                                             06/30/2024 17:18:33 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -121,17 +119,17 @@ SYMBOL TABLE LISTING
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
 AFTERRORATE. . . .  C ADDR   0017H   R   SEG=PRGSEG
-MYLOOP . . . . . .  C ADDR   0023H   R   SEG=PRGSEG
-MYLOOPA. . . . . .  C ADDR   0021H   R   SEG=PRGSEG
+MYLOOP . . . . . .  C ADDR   0028H   R   SEG=PRGSEG
+MYLOOPA. . . . . .  C ADDR   0026H   R   SEG=PRGSEG
+MYLOOPR4 . . . . .  C ADDR   0024H   R   SEG=PRGSEG
 NOSETFLAG0 . . . .  C ADDR   000BH   R   SEG=PRGSEG
 NOSETFLAG1 . . . .  C ADDR   0006H   R   SEG=PRGSEG
-PRGSEG . . . . . .  C SEG    002CH       REL=UNIT
+PRGSEG . . . . . .  C SEG    0034H       REL=UNIT
 PTIO . . . . . . .  N NUMB   8008H   A   
 ROTATELEFT . . . .  C ADDR   0011H   R   SEG=PRGSEG
 ROTATERIGHT. . . .  C ADDR   0014H   R   SEG=PRGSEG
-_CHECKSPEED. . . .  C ADDR   002BH   R   SEG=PRGSEG
 _GETADC. . . . . .  C ADDR   0000H   R   SEG=PRGSEG
-_SL33P . . . . . .  C ADDR   001FH   R   SEG=PRGSEG
+_SL33P . . . . . .  C ADDR   001DH   R   SEG=PRGSEG
 
 
 REGISTER BANK(S) USED: 0 

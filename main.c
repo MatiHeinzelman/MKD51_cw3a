@@ -6,16 +6,16 @@ unsigned int direction=0;
 
 extern unsigned int GETADC( unsigned int myint);
 extern void _SL33P();
-extern void CHKSPEED();
+ 
 
 void main(void) {
 	
 	   while(1) {
-			CHKSPEED();
 			myint = GETADC( myint );
-			_SL33P()
+			_SL33P();
 		 } 
 }
 
  
  
+
